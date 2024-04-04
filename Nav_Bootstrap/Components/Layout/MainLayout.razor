@@ -1,0 +1,123 @@
+﻿@inherits LayoutComponentBase
+
+@* <main>
+    <div class="top-row px-4">
+        <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+    </div>
+
+    
+</main> *@
+
+<div class="bb-page">
+
+    <Sidebar @ref="sidebar"
+             IconName="IconName.HousesFill"
+             Title="Magyar lófajták"
+             DataProvider="SidebarDataProvider"
+             class="my-sidebar"
+             />
+             <style>
+                 .my-sidebar {
+                     background-color: deepskyblue !important;
+                     color: black !important;
+                     text-decoration: none !important;
+                     transition: font-size 2s !important;
+                 }
+
+                .my-sidebar a:hover{
+                     color: chocolate !important;
+                     font-size: 1.5rem !important;
+                }
+                .my-sidebar a{
+                    text-decoration:none !important;
+                    color: black !important;
+                }
+                .navbar{
+                    background-color: green !important;
+                }
+
+                .second-nav a{
+                    text-decoration:none !important;
+                    color: red !important;
+                }
+                main{
+                    background-image: url("img/BGhorse.jpg");
+                    background-attachment:scroll;
+                    background-repeat:no-repeat;
+                    z-index:-1000 !important;
+                    opacity: 0.6 !important;
+                }
+        </style>
+
+    <main>
+        <div class="bb-top-row px-4 d-flex justify-content-between second-nav">
+            <Icon Name="IconName.List" role="button" @onclick="ToggleSidebar" />
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">Rólunk</a>
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">Bemutatkozás</a>
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">Kapcsolat</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+
+</div>
+
+@code {
+    Sidebar sidebar;
+    IEnumerable<NavItem> navItems;
+
+    private async Task<SidebarDataProviderResult> SidebarDataProvider(SidebarDataProviderRequest request)
+    {
+        if (navItems is null)
+            navItems = GetNavItems();
+
+        return await Task.FromResult(request.ApplyTo(navItems));
+    }
+
+    private IEnumerable<NavItem> GetNavItems()
+    {
+        navItems = new List<NavItem>
+        {
+            new NavItem { Id = "1", Href = "/", IconName = IconName.Snow2,IconColor = IconColor.Primary, Text = "Hidegvérű",Class="fs-3"},
+            new NavItem {Id = "1.1", Href = "/", IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Magyar hidegvérű", ParentId = "1",Class="fs-6  bgcolor"},
+            new NavItem {Id = "1.2", Href = "https://upload.wikimedia.org/wikipedia/commons/4/49/Me%C4%91imurski_konj_%28Croatia%29.jpg", Target = Target.Blank, IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Muraközi", ParentId = "1",Class="fs-6  bgcolor"},
+
+            new NavItem { Id = "2",  IconName = IconName.SunFill, Text = "Melegvérű", IconColor = IconColor.Warning,Class="fs-3"},
+            new NavItem {Id = "2.1", Href = "/", IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Hucul", ParentId = "2",Class="fs-6  bgcolor"},
+             new NavItem {Id = "2.2", Href = "http://www.lovasok.hu/images/fogathajtas/lip_2.jpg", Target = Target.Blank, IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Lipicai", ParentId = "2",Class="fs-6  bgcolor"},
+              new NavItem {Id = "2.3", Href = "https://i0.wp.com/thepixelnomad.com/wp-content/uploads/2023/11/190918-Nonius-Szamos013-edit.jpg",Target = Target.Blank, IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Nóniusz", ParentId = "2",Class="fs-6  bgcolor"},
+               new NavItem {Id = "2.4", Href = "/", IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Shagya-arab", ParentId = "2",Class="fs-6  bgcolor"},
+                new NavItem {Id = "2.4", Href = "/", IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Furioso-north star", ParentId = "2",Class="fs-6  bgcolor"},
+                 new NavItem {Id = "2.5", Href = "/", IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Kisbéri félvér", ParentId = "2",Class="fs-6  bgcolor"},
+                  new NavItem {Id = "2.6", Href = "/", IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Gidrán", ParentId = "2",Class="fs-6  bgcolor"},
+                   new NavItem {Id = "2.7", Href = "/", IconName = IconName.ArrowReturnRight, IconColor = IconColor.Dark, Text = "Mezőhegyesi sportló", ParentId = "2",Class="fs-6  bgcolor"},
+
+            new NavItem { Id = "3",  IconName = IconName.MagnetFill, Text = "Ménesek", IconColor = IconColor.Dark,Class="fs-3"},
+            new NavItem {Id = "3.1", Href = "/", IconName = IconName.Signpost, IconColor = IconColor.Danger, Text = "Mezőhegyes (1785)", ParentId = "3",Class="fs-6 bgcolor"},
+            new NavItem {Id = "3.2", Href = "/", IconName = IconName.Signpost, IconColor = IconColor.Danger, Text = "Bábolna (1789)", ParentId = "3",Class="fs-6 bgcolor"},
+            new NavItem {Id = "3.3", Href = "/", IconName = IconName.Signpost, IconColor = IconColor.Danger, Text = "Kisbér (1853)", ParentId = "3",Class="fs-6 bgcolor"},
+            new NavItem {Id = "3.4", Href = "/", IconName = IconName.Signpost, IconColor = IconColor.Danger, Text = "Szilvásvárad (1951)", ParentId = "3",Class="fs-6 bgcolor"},
+            new NavItem {Id = "3.5", Href = "/", IconName = IconName.Signpost, IconColor = IconColor.Danger, Text = "Hortobágy (N/A)", ParentId = "3",Class="fs-6 bgcolor"},
+
+            new NavItem {Id = "4", Href = "/hotelek", IconName = IconName.Signpost, IconColor = IconColor.Primary, Text = "Lovas Hotelek", Class="fs-3"},
+            new NavItem {Id="4.1", Href = "/ujhotel",IconName =IconName.Signpost2, IconColor = IconColor.Primary, Text = "Hozzáadás", Class="fs-3", ParentId="4"}
+
+            // new NavItem { Id = "4", IconName = IconName.ExclamationTriangleFill, Text = "Components", IconColor = IconColor.Success },
+            // new NavItem { Id = "5", Href = "/alerts", IconName = IconName.CheckCircleFill, Text = "Alerts", ParentId="4"},
+            // new NavItem { Id = "6", Href = "/breadcrumb", IconName = IconName.SegmentedNav, Text = "Breadcrumb", ParentId="4"},
+            // new NavItem { Id = "7", Href = "/sidebar", IconName = IconName.LayoutSidebarInset, Text = "Sidebar", ParentId="4"},
+
+            // new NavItem { Id = "8", IconName = IconName.WindowPlus, Text = "Forms", IconColor = IconColor.Danger },
+            // new NavItem { Id = "9", Href = "/autocomplete", IconName = IconName.InputCursorText, Text = "Auto Complete", ParentId="8"},
+            // new NavItem { Id = "10", Href = "/currency-input", IconName = IconName.CurrencyDollar, Text = "Currency Input", ParentId="8"},
+            // new NavItem { Id = "11", Href = "/number-input", IconName = IconName.InputCursor, Text = "Number Input", ParentId="8"},
+            // new NavItem { Id = "12", Href = "/switch", IconName = IconName.ToggleOn, Text = "Switch", ParentId="8"},
+        };
+
+        return navItems;
+    }
+
+    private void ToggleSidebar() => sidebar.ToggleSidebar();
+}
