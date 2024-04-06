@@ -1,21 +1,57 @@
 ﻿@page "/ujhotel"
-@inject Nav_Bootstrap.Data.MySQL_DB_Context HotelDB
+@inject Nav_Bootstrap.Data.MySQL_DB_Context HotelDB01
 @rendermode InteractiveServer
+@using Nav_Bootstrap.Modell;
+@inject NavigationManager NavigationManager
 
 
-<h3>UjHotel</h3>
+<h3>Új Hotel hozzáadása.</h3>
 
 <hr />
  <div class="row">
      <div class="column">
-         <EditForm Enhance>
-             <DataAnnotationsValidator>
+         <EditForm method="post" FormName="create" OnValidSubmit="AddHotels" Model="HotelDB" Enhance>
+             <DataAnnotationsValidator></DataAnnotationsValidator>
+             <ValidationSummary class="text-danger"></ValidationSummary>
 
-             </DataAnnotationsValidator>
+            <div class="form-group mb-3">
+                 <label for="name" class="col-form-label">Hotel</label>
+                <InputText id="name" class="col-form-label" @bind-Value="HotelDB.Name"></InputText>
+             </div>
+            <div class="form-group mb-3">
+                <label for="location" class="col-form-label">Helyszín</label>
+                <InputText id="location" class="col-form-label" @bind-Value="HotelDB.Location"></InputText>
+            </div>
+            <div class="form-group mb-3">
+                <label for="lodb" class="col-form-label">Lovak száma</label>
+                <InputText id="lodb" class="col-form-label" @bind-Value="HotelDB.LovakSzama"></InputText>
+            </div>
+            <div class="form-group mb-3">
+                <label for="price" class="col-form-label">Ár/éj</label>
+                <InputNumber id="price" class="col-form-label" @bind-Value="HotelDB.Price"></InputNumber>
+            </div>
+            <div class="form-group mb-3">
+                <label for="rating" class="col-form-label">Értékelés</label>
+                <InputNumber id="rating" class="col-form-label" @bind-Value="HotelDB.Rating"></InputNumber>
+            </div>
+            @* <div class="form-group mb-3">
+                <label for="img" class="col-form-label">Értékelés</label>
+                <InputText id="img" class="col-form-label" @bind-Value="HotelDB.ImgUrl"></InputText>
+            </div> *@
+             <button type="submit" class="btn btn-success">Küldés</button>
+             <a href="/adatok" class="btn btn-primary">Vissza a hotelek listához!</a>
          </EditForm>
      </div>
  </div>
 
 @code {
+    [SupplyParameterFromForm]
+    public PaciHotel HotelDB { get; set; } = new();
 
+    public async Task AddHotels()
+    {
+        HotelDB01.PaciHotel.Add(HotelDB);
+        await HotelDB01.SaveChangesAsync();
+        NavigationManager.NavigateTo("/adatok");
+    }
 }

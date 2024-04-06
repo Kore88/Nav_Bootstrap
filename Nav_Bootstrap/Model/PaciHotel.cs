@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 namespace Nav_Bootstrap.Modell
 {
@@ -13,10 +14,12 @@ namespace Nav_Bootstrap.Modell
         public string Location { get; set; }
         [Required(ErrorMessage ="Az ár mező kitöltése kötelező!")]
         public int Price { get; set; }
-        public double Rating { get; set; }
+        [Range(0,5)]
+        public int Rating { get; set; }
         public string LovakSzama { get; set; } = "Nincs információ!";
         [Required(ErrorMessage ="A fizetési lehetőség kiválasztása kötelező!")]
         public bool CardorNot { get; set; } = false;
+        //public string? ImgUrl { get; set; }
 
     }
 }

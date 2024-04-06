@@ -1,4 +1,4 @@
-﻿@page "/hotelek"
+﻿@page "/adatok"
 @using Nav_Bootstrap.Modell
 @inject Nav_Bootstrap.Data.MySQL_DB_Context HotelDB
 @rendermode InteractiveServer
@@ -25,7 +25,12 @@
                 <td class="">@item.Location</td>
                 <td class="">@item.LovakSzama</td>
                 <td class="">@item.Price</td>
-                <td class="">@item.Rating</td>
+                <td class="">@item.Rating <Icon Name="IconName.StarFill" Color="IconColor.Warning"/></td>
+               @*  <td>
+                    <div class="img-box">
+                        <img src="@item.ImgUrl" alt="Alternate Text" />
+                    </div>
+                </td> *@
             </tr>
         }
     </tbody>

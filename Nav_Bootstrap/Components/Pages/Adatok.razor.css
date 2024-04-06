@@ -1,0 +1,21 @@
+﻿table {
+    border-collapse: separate;
+    width: 100%;
+    margin-left: 2rem;
+    border-spacing:1rem;
+}
+
+.headerRow {
+    font-family: 'Cascadia Mono';
+    font-size: 28px;
+    color: orangered;
+    background: rgba(0, 50, 200, .2)
+}
+
+th, tr {
+    font-weight:bold;
+}
+.img-box{
+    width:2rem;
+    height:2rem;
+}
